@@ -244,7 +244,7 @@ namespace Grove_Gestrue
         /**
          * Get gesture event type
          */
-        //% blockId=gesture_event_type block="|gesture %gesture"
+        //% blockId=gesture_event_type block="%strip|gesture %gesture"
         eventType(gesture: GES_EVENT): number
         {
             return gesture;
