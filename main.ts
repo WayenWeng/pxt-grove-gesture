@@ -240,6 +240,15 @@ namespace Grove_Gestrue
             if(data == gesture)return true;
             else return false;
         }
+        
+        /**
+         * Get gesture event type
+         */
+        //% blockId=gesture_event_type block="gesture %gesture"
+        eventType(gesture: GES_EVENT): number
+        {
+            return gesture;
+        }
     }
     
     export function create(): PAJ7620
