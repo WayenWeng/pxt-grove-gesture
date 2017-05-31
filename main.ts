@@ -230,13 +230,12 @@ namespace Grove_Gestrue
         /**
          * Read gesture event
          */
-        //% blockId=is_gesture_event block="%strip|is event|gesture %gesture"
+        //% blockId=is_gesture_event block="%strip|is |gesture %gesture"
         isEvent(gesture: GES_EVENT): boolean
         {
             let data = 0;
             
             data = this.eventRead();
-            basic.pause(50);
             
             if(data == gesture)return true;
             else return false;
