@@ -1,10 +1,10 @@
 {
     let data = GES_EVENT.GES_NONE_EVENT;
-    let gesture = Grove_Gestrue.create();
+    let gesture: Grove_Gestrue.PAJ7620 = null;
     
     while(true)
     {        
-        data = gesture.eventRead();
+        data = gesture.read();
         if(data == GES_EVENT.GES_UP_EVENT)
         {
             basic.showString("U");
@@ -42,24 +42,27 @@
             basic.showString("W");
         }
         
-        // if(gesture.isEvent(GES_EVENT.GES_UP_EVENT))
+        // if(gesture.is(GES_EVENT.GES_UP_EVENT))
         // {
             // basic.showString("U");
         // }
         
-        // if(gesture.isEvent(GES_EVENT.GES_DOWN_EVENT))
+        // if(gesture.is(GES_EVENT.GES_DOWN_EVENT))
         // {
             // basic.showString("D");
         // }
 
-        // if(gesture.isEvent(GES_EVENT.GES_RIGHT_EVENT))
+        // if(gesture.is(GES_EVENT.GES_RIGHT_EVENT))
         // {
             // basic.showString("R");
         // }
         
-        // if(gesture.isEvent(GES_EVENT.GES_LEFT_EVENT))
+        // if(gesture.is(GES_EVENT.GES_LEFT_EVENT))
         // {
             // basic.showString("L");
         // }
+        
+        // if(gesture.read() == Grove_Gestrue.type(GES_EVENT.GES_LEFT_EVENT))basic.showString("L");
+        // if(gesture.read() == Grove_Gestrue.type(GES_EVENT.GES_RIGHT_EVENT))basic.showString("R");
     }
 }

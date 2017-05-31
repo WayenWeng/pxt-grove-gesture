@@ -147,7 +147,7 @@ namespace Grove_Gestrue
         /**
          * Initialize gesture module
          */
-        //% blockId=gesture_init block="%strip init"
+        //% blockId=gesture_init block="%strip|init"
         init()
         {
             this.paj7620Init();
