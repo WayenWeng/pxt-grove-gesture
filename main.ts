@@ -155,7 +155,7 @@ namespace Grove_Gestrue
         /**
          * Read gesture event
          */
-        //% blockId=gesture_read block="event read"
+        //% blockId=gesture_read block="%strip event read"
         eventRead(): number
         {
             let data = GES_EVENT.GES_NONE_EVENT;
@@ -256,5 +256,3 @@ namespace Grove_Gestrue
         return gesture;
     }
 }
-
-// let gesture = Grove_Gestrue.create();
