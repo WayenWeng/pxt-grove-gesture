@@ -231,15 +231,15 @@ namespace Grove_Gestrue
          * Read gesture event
          */
         //% blockId=is_gesture_event block="%strip|is event|gesture %gesture"
-        isEvent(gesture: GES_EVENT): number
+        isEvent(gesture: GES_EVENT): boolean
         {
             let data = 0;
             
             data = this.eventRead();
             basic.pause(50);
             
-            if(data == gesture)return 1;
-            else return 0;
+            if(data == gesture)return true;
+            else return false;
         }
     }
     
@@ -256,3 +256,5 @@ namespace Grove_Gestrue
         return gesture;
     }
 }
+
+let gesture = Grove_Gestrue.create();
