@@ -155,7 +155,7 @@ namespace Grove_Gestrue
         /**
          * Read gesture event
          */
-        //% blockId=gesture_read block="%strip event read"
+        //% blockId=gesture_read block="%strip|event read"
         eventRead(): number
         {
             let data = GES_EVENT.GES_NONE_EVENT;
@@ -230,7 +230,7 @@ namespace Grove_Gestrue
         /**
          * Read gesture event
          */
-        //% blockId=is_gesture_event block="%strip is event|gesture %gesture"
+        //% blockId=is_gesture_event block="%strip|is event|gesture %gesture"
         isEvent(gesture: GES_EVENT): number
         {
             let data = 0;
@@ -246,7 +246,7 @@ namespace Grove_Gestrue
     /**
      * Create a new PAJ7620 driver for Grove Gesture
      */
-    //% blockId=paj7620_create block="create"
+    //% blockId=paj7620_create block="create gesture"
     export function create(): PAJ7620
     {
         let gesture = new PAJ7620();
