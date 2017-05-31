@@ -243,10 +243,6 @@ namespace Grove_Gestrue
         }
     }
     
-    /**
-     * Create a new PAJ7620 driver for Grove Gesture
-     */
-    //% blockId=paj7620_create block="create gesture"
     export function create(): PAJ7620
     {
         let gesture = new PAJ7620();
@@ -256,5 +252,3 @@ namespace Grove_Gestrue
         return gesture;
     }
 }
-
-let gesture = Grove_Gestrue.create();
