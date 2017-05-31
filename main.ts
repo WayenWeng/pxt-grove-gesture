@@ -88,7 +88,6 @@ enum GES_EVENT {
     GES_WAVE_EVENT = 9
 }
 
-
 /**
  * Functions to operate Grove Gesture module.
  */
@@ -96,9 +95,7 @@ enum GES_EVENT {
 namespace Grove_Gestrue
 {    
     export class PAJ7620
-    {
-        gestureData: GES_EVENT;
-        
+    {        
         private paj7620WriteReg(addr: number, cmd: number)
         {
             let buf: Buffer = pins.createBuffer(2);
@@ -147,116 +144,90 @@ namespace Grove_Gestrue
             this.paj7620SelectBank(0);
         }
         
+        /**
+         * Initialize gesture module
+         */
+        //% blockId=gesture_init block="%strip init"
         init()
         {
             this.paj7620Init();
         }
         
         /**
-         * Read gesture event
+         * Read current gesture type
          */
-        //% blockId=gesture_read block="%strip|event read"
-        eventRead(): number
+        //% blockId=gesture_read block="%strip|read"
+        read(): number
         {
-            let data = GES_EVENT.GES_NONE_EVENT;
+            let data = 0, result = 0;
             
             data = this.paj7620ReadReg(0x43);
-            if(data == 0x01) // Right
+            switch(data)
             {
-                data = this.paj7620ReadReg(0x43);
-                if(data == 0x10) // Forward
-                    data = GES_EVENT.GES_FORWARD_EVENT;
-                else if(data == 0x20) // Backward
-                    data = GES_EVENT.GES_BACKWARD_EVENT;
-                else // Right
-                    data = GES_EVENT.GES_RIGHT_EVENT;
-            }
-            else if(data == 0x02) // Left
-            {
-                data = this.paj7620ReadReg(0x43);
-                if(data == 0x10) // Forward
-                    data = GES_EVENT.GES_FORWARD_EVENT;
-                else if(data == 0x20) // Backward
-                    data = GES_EVENT.GES_BACKWARD_EVENT;
-                else // Left
-                    data = GES_EVENT.GES_LEFT_EVENT;
-            }
-            else if(data == 0x04) // Up
-            {
-                data = this.paj7620ReadReg(0x43);
-                if(data == 0x10) // Forward
-                    data = GES_EVENT.GES_FORWARD_EVENT;
-                else if(data == 0x20) // Backward
-                    data = GES_EVENT.GES_BACKWARD_EVENT;
-                else // Left
-                    data = GES_EVENT.GES_UP_EVENT;
-            }
-            else if(data == 0x08) // Down
-            {
-                data = this.paj7620ReadReg(0x43);
-                if(data == 0x10) // Forward
-                    data = GES_EVENT.GES_FORWARD_EVENT;
-                else if(data == 0x20) // Backward
-                    data = GES_EVENT.GES_BACKWARD_EVENT;
-                else // Left
-                    data = GES_EVENT.GES_DOWN_EVENT;
-            }
-            else if(data == 0x10) // Forward
-            {
-                data = GES_EVENT.GES_FORWARD_EVENT;
-            }
-            else if(data == 0x20) // Backward
-            {
-                data = GES_EVENT.GES_BACKWARD_EVENT;
-            }
-            else if(data == 0x40) // Clockwise
-            {
-                data = GES_EVENT.GES_CLOCKWISE_EVENT;
-            }
-            else if(data == 0x80) // Anticlockwise
-            {
-                data = GES_EVENT.GES_ANTICCLOCKWISE_EVEN;
-            }
-            else
-            {
-                data = this.paj7620ReadReg(0x44);
-                if(data == 0x01) // Wave
-                    data = GES_EVENT.GES_WAVE_EVENT;
+                case 0x01:
+                    result = GES_EVENT.GES_RIGHT_EVENT;
+                break;
+                
+                case 0x02:
+                    result = GES_EVENT.GES_LEFT_EVENT;
+                break;
+                
+                case 0x04:
+                    result = GES_EVENT.GES_UP_EVENT;
+                break;
+                
+                case 0x08:
+                    result = GES_EVENT.GES_DOWN_EVENT;
+                break;
+                
+                case 0x10:
+                    result = GES_EVENT.GES_FORWARD_EVENT;
+                break;
+                
+                case 0x20:
+                    result = GES_EVENT.GES_BACKWARD_EVENT;
+                break;
+                
+                case 0x40:
+                    result = GES_EVENT.GES_CLOCKWISE_EVENT;
+                break;
+                
+                case 0x80:
+                    result = GES_EVENT.GES_ANTICCLOCKWISE_EVEN;
+                break;
+                
+                default:
+                    data = this.paj7620ReadReg(0x44);
+                    if(data == 0x01) // Wave
+                        result = GES_EVENT.GES_WAVE_EVENT;
+                break;
             }
             
-            return data;
+            return result;
         }
                
         /**
-         * Read gesture event
+         * Check current gesture type
+         * @param gesture value of gesture type
          */
-        //% blockId=is_gesture_event block="%strip|is |gesture %gesture"
-        isEvent(gesture: GES_EVENT): boolean
+        //% blockId=is_gesture_type block="%strip|is|%gesture"
+        is(gesture: GES_EVENT): boolean
         {
             let data = 0;
             
-            data = this.eventRead();
-            basic.pause(100);
+            data = this.read();
+            basic.pause(50);
             
             if(data == gesture)return true;
             else return false;
         }
     }
-    
-    export function create(): PAJ7620
-    {
-        let gesture = new PAJ7620();
-        
-        gesture.init();
-        
-        return gesture;
-    }
-    
+
     /**
-     * Gesture event type
+     * Gesture type
      */
-    //% blockId=gesture_event_type block="gesture %gesture"
-    export function eventType(gesture: GES_EVENT): number
+    //% blockId=gesture_type block="gesture %gesture"
+    export function type(gesture: GES_EVENT): number
     {
         return gesture;
     }
