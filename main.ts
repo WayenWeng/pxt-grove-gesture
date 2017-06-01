@@ -216,7 +216,7 @@ namespace Grove_Gestrue
             let data = 0;
             
             data = this.read();
-            basic.pause(50);
+            // basic.pause(50);
             
             if(data == gesture)return true;
             else return false;
