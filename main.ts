@@ -127,6 +127,7 @@ namespace Grove_Gestrue
          * Read current gesture type
          */
         //% blockId=gesture_read block="%strip|read"
+        //% parts="Grove_Gestrue" advanced=true
         read(): number
         {
             let data = 0, result = 0;
@@ -177,7 +178,7 @@ namespace Grove_Gestrue
         }
         
         /**
-         * Clear display
+         * Run get get gesture
          */
         //% blockId=gesture_run block="%strip|run" 
         run()
