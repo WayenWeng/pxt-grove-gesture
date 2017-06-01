@@ -1,36 +1,4 @@
 
-/**
- * 
- */
-enum REG_BANK_0 {
-    PAJ7620_ADDR_SUSPEND_CMD = 0x3,
-    PAJ7620_ADDR_GES_PS_DET_MASK_0 = 0x41,
-    PAJ7620_ADDR_GES_PS_DET_MASK_1 = 0x42,
-    PAJ7620_ADDR_GES_PS_DET_FLAG_0 = 0x43,
-    PAJ7620_ADDR_GES_PS_DET_FLAG_1 = 0x44,
-    PAJ7620_ADDR_STATE_INDICATOR = 0x45,
-    PAJ7620_ADDR_PS_HIGH_THRESHOLD = 0x69,
-    PAJ7620_ADDR_PS_LOW_THRESHOLD = 0x6A,
-    PAJ7620_ADDR_PS_APPROACH_STATE = 0x6B,
-    PAJ7620_ADDR_PS_RAW_DATA = 0x6C
-}
-
-/**
- * 
- */
-enum REG_BANK_1 {   
-    PAJ7620_ADDR_PS_GAIN = 0x44,
-    PAJ7620_ADDR_IDLE_S1_STEP_0 = 0x67,
-    PAJ7620_ADDR_IDLE_S1_STEP_1 = 0x68,
-    PAJ7620_ADDR_IDLE_S2_STEP_0 = 0x69,
-    PAJ7620_ADDR_IDLE_S2_STEP_1 = 0x6A,
-    PAJ7620_ADDR_OP_TO_S1_STEP_0 = 0x6B,
-    PAJ7620_ADDR_OP_TO_S1_STEP_1 = 0x6C,
-    PAJ7620_ADDR_OP_TO_S2_STEP_0 = 0x6D,
-    PAJ7620_ADDR_OP_TO_S2_STEP_1 = 0x6E,
-    PAJ7620_ADDR_OPERATION_ENABLE = 0x72
-}
-
 let initRegisterArray: number [] = [
     0xEF,0x00, 0x32,0x29, 0x33,0x01, 0x34,0x00, 0x35,0x01, 0x36,0x00, 0x37,0x07, 0x38,0x17,
 	0x39,0x06, 0x3A,0x12, 0x3F,0x00, 0x40,0x02, 0x41,0xFF, 0x42,0x01, 0x46,0x2D, 0x47,0x0F,
@@ -93,9 +61,11 @@ enum GES_EVENT {
  */
 //% weight=10 color=#9F79EE icon="\uf108"
 namespace Grove_Gestrue
-{    
+{   
+    let Gesture = 0;
+    
     export class PAJ7620
-    {        
+    {
         private paj7620WriteReg(addr: number, cmd: number)
         {
             let buf: Buffer = pins.createBuffer(2);
@@ -130,7 +100,6 @@ namespace Grove_Gestrue
             let temp = 0;
             
             this.paj7620SelectBank(0);
-            this.paj7620SelectBank(0);
             
             temp = this.paj7620ReadReg(0);
             if(temp == 0x20)
@@ -151,6 +120,7 @@ namespace Grove_Gestrue
         init()
         {
             this.paj7620Init();
+            basic.pause(200);
         }
         
         /**
@@ -198,14 +168,23 @@ namespace Grove_Gestrue
                 
                 default:
                     data = this.paj7620ReadReg(0x44);
-                    if(data == 0x01) // Wave
+                    if(data == 0x01)
                         result = GES_EVENT.GES_WAVE_EVENT;
                 break;
             }
-            
+
             return result;
         }
-               
+        
+        /**
+         * Clear display
+         */
+        //% blockId=gesture_run block="%strip|run" 
+        run()
+        {
+            Gesture = this.read();
+        }
+        
         /**
          * Check current gesture type
          * @param gesture value of gesture type
@@ -213,12 +192,7 @@ namespace Grove_Gestrue
         //% blockId=is_gesture_type block="%strip|is|%gesture"
         is(gesture: GES_EVENT): boolean
         {
-            let data = 0;
-            
-            data = this.read();
-            // basic.pause(50);
-            
-            if(data == gesture)return true;
+            if(Gesture == gesture)return true;
             else return false;
         }
     }
