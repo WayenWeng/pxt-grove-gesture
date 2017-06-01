@@ -202,6 +202,7 @@ namespace Grove_Gestrue
      * Gesture type
      */
     //% blockId=gesture_type block="gesture %gesture"
+    //% parts="Grove_Gestrue" advanced=true
     export function type(gesture: GES_EVENT): number
     {
         return gesture;
