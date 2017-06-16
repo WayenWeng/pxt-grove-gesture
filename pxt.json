@@ -1,11 +1,10 @@
 {
-    "name": "Grove - Gesture",
+    "name": "grove-gesture",
     "version": "0.1.0",
-    "description": "A PXT package for Seeed Studio Grove - Gesture",
+    "description": "A Microsoft MakeCode package for Seeed Studio Grove - Gesture",
     "license": "MIT",
     "dependencies": {
-        "core": "*",
-        "radio": "*"
+        "core": "*"
     },
     "files": [
         "README.md",
@@ -14,5 +13,5 @@
     "testFiles": [
         "test.ts"
     ],
-    "public": false
+    "public": true
 }

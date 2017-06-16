@@ -1,6 +1,6 @@
 # Grove - Gesture
 
-A PXT package for for Seeed Studio Grove - Gesture, see https://www.seeedstudio.com/Grove-Gesture-p-2463.html
+A Microsoft MakeCode package for for Seeed Studio Grove - Gesture, see https://www.seeedstudio.com/Grove-Gesture-p-2463.html
 
 ## Basic usage
 
